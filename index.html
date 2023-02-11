@@ -1,166 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Bulma -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Ahorradas</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Header con menu de navegacion -->
     <header>
-      <nav
-        class="navbar has-background-info p-2"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="navbar-brand">
-          <a
-            class="navbar-item has-text-white title is-2 mb-0"
-            href="https://bulma.io"
-          >
-            <i class="fa-solid fa-wallet mr-2"></i>
-            AhorrADAS
-          </a>
+        <nav class="navbar has-background-info p-2" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item has-text-white title is-2 mb-0" href="https://bulma.io">
+                    <i class="fa-solid fa-wallet mr-2"></i>
+                    AhorrADAS
+                </a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-info">
-                Balance
-                <i class="fa-solid fa-arrow-trend-up ml-2"></i>
-              </a>
-              <a class="button is-info">
-                Categorias
-                <i class="fa-solid fa-tag ml-2"></i>
-              </a>
-              <a class="button is-info">
-                Reportes
-                <i class="fa-solid fa-chart-pie ml-2"></i>
-              </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
-          </div>
-        </div>
-      </nav>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-info">
+                            Balance
+                            <i class="fa-solid fa-arrow-trend-up ml-2"></i>
+                        </a>
+                        <a class="button is-info">
+                            Categorias
+                            <i class="fa-solid fa-tag ml-2"></i>
+                        </a>
+                        <a class="button is-info">
+                            Reportes
+                            <i class="fa-solid fa-chart-pie ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main class="has-background-light">
-      <!-- vista principal de balance -->
-      <section class="section pt-6">
-        <div class="container">
-          <div class="columns mt-4">
-            <div class="column is-3 has-background-light">
-              <div class="box pb-2">
-                <h4 class="title is-3 is-spaced">Balance</h4>
-                <div class="is-flex is-justify-content-space-between">
-                  <h4 class="subtitle is-5">Ganancia</h4>
-                  <span class="has-text-success">+$0</span>
-                </div>
-                <div class="is-flex is-justify-content-space-between">
-                  <h4 class="subtitle is-5">Gastos</h4>
-                  <span class="has-text-danger">-$0</span>
-                </div>
-                <div class="is-flex is-justify-content-space-between">
-                  <h4 class="subtitle is-4">Total</h4>
-                  <span class="has-text-weight-bold">$0</span>
-                </div>
-              </div>
-              <div class="box pt-2">
-                <div class="is-flex is-justify-content-space-between">
-                  <h3 class="title is-3">Filtros</h3>
-                  <button class="button is-white">Ocultar Filtros</button>
-                </div>
+        <!-- vista principal de balance -->
+        <section class="section pt-6">
+            <div class="container">
+                <div class="columns is-centered mt-4">
+                    <div class="column is-3 has-background-light">
+                        <div class="box pb-2">
+                            <h4 class="title is-3 is-spaced">Balance</h4>
+                            <div class="is-flex is-justify-content-space-between">
+                                <h4 class="subtitle is-5">Ganancia</h4>
+                                <span class="has-text-success">+$0</span>
+                            </div>
+                            <div class="is-flex is-justify-content-space-between">
+                                <h4 class="subtitle is-5">Gastos</h4>
+                                <span class="has-text-danger">-$0</span>
+                            </div>
+                            <div class="is-flex is-justify-content-space-between">
+                                <h4 class="subtitle is-4">Total</h4>
+                                <span class="has-text-weight-bold">$0</span>
+                            </div>
+                        </div>
 
-                <div class="mt-4">
-                  <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
-                  <div class="select is-fullwidth">
-                    <select>
-                      <option>Todos</option>
-                      <option>Gastos</option>
-                      <option>Ganancia</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="mt-4">
-                  <h4 class="title is-6 has-text-weight-bold mb-2">
-                    Categoría
-                  </h4>
-                  <div class="select is-fullwidth">
-                    <select>
-                      <option>Todos</option>
-                      <option>Comidas</option>
-                      <option>Servicios</option>
-                      <option>Salidas</option>
-                      <option>Educación</option>
-                      <option>Transporte</option>
-                      <option>Trabajo</option>
-                    </select>
-                  </div>
+                        <div class="box pt-2">
+                            <div class="is-flex is-justify-content-space-between">
+                                <h3 class="title is-3">Filtros</h3>
+                                <button class="button is-white">Ocultar Filtros</button>
+                            </div>
 
-                  <div class="mt-4">
-                    <label class="label" for="ip-date">Desde</label>
-                    <input class="input" id="ip-date" type="date" />
-                  </div>
-                  <div class="mt-4">
-                    <h4 class="title is-6 has-text-weight-bold mb-2">
-                      Ordenar por
-                    </h4>
-                    <div class="select is-fullwidth">
-                      <select>
-                        <option>Más reciente</option>
-                        <option>Menos reciente</option>
-                        <option>Mayor monto</option>
-                        <option>Menor monto</option>
-                        <option>A/Z</option>
-                        <option>Z/A</option>
-                      </select>
+                            <div class="mt-4">
+                                <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>Todos</option>
+                                        <option>Gastos</option>
+                                        <option>Ganancia</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <h4 class="title is-6 has-text-weight-bold mb-2">
+                                    Categoría
+                                </h4>
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>Todos</option>
+                                        <option>Comidas</option>
+                                        <option>Servicios</option>
+                                        <option>Salidas</option>
+                                        <option>Educación</option>
+                                        <option>Transporte</option>
+                                        <option>Trabajo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <label class="label" for="ip-date">Desde</label>
+                                <input class="input" id="ip-date" type="date" />
+                            </div>
+
+                            <div class="mt-4">
+                                <h4 class="title is-6 has-text-weight-bold mb-2">
+                                </h4>
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option>Más reciente</option>
+                                        <option>Menos reciente</option>
+                                        <option>Mayor monto</option>
+                                        <option>Menor monto</option>
+                                        <option>A/Z</option>
+                                        <option>Z/A</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
+
+
+
+                    <div class="column is-7 m-3 has-background-white box">
+
+                        <div class="is-flex m-4 is-justify-content-space-between">
+                            <h3 class="title is-3">Operaciones</h3>
+                            <a class="button is-info">+ Nueva operación</a>
+                        </div>
+
+                        <div class="image m-6">
+                            <img src="" alt="imagenes/" />
+                        </div>
+
+                        <div class="has-text-centered m-5">
+                            <h4 class="has-text-weight-bold m-5">Sin Resultados</h4>
+                            <p>Cambia los filtros o agrega operaciones</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
 
-            <div class="column is-7 m-3 has-background-white box">
-              <div class="is-flex m-4 is-justify-content-space-between">
-                <h3 class="title is-3">Operaciones</h3>
-                <a class="button is-info">+ Nueva operación</a>
-              </div>
-              <div class="image m-6">
-                <img src="" alt="imagenes/" />
-              </div>
-              <div class="has-text-centered m-5">
-                <h4 class="has-text-weight-bold m-5">Sin Resultados</h4>
-                <p>Cambia los filtros o agrega operaciones</p>
-              </div>
+
+        </section>
+
+        <!-- vista secundaria de balance---Nueva Operacion -->
+        <section class="section">
+            <div class="container is-flex is-justify-content-center pt-6">
+                <div class="column is-8 box m-4">
+                    <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
+                        Nueva Operación
+                    </h2>
+                    <div class="m-4">
+                        <label class="label" for="ipt-operations">Descripción</label>
+                        <input class="input" id="ipt-operations" type="text" />
+                    </div>
+                    <div class="m-4">
+                        <label class="label" for="ipt-amount">Monto</label>
+                        <input class="input" id="ipt-amount" type="number" value="8" />
+                    </div>
+                    <div class="m-4">
+                        <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
+                        <div class="select is-fullwidth">
+                            <select>
+                                <option>Gastos</option>
+                                <option>Ganancia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="m-4">
+                        <h4 class="title is-6 has-text-weight-bold mb-2">Categorías</h4>
+                        <div class="select is-fullwidth">
+                            <select>
+                                <option>Comidas</option>
+                                <option>Servicios</option>
+                                <option>Salidas</option>
+                                <option>Educación</option>
+                                <option>Transporte</option>
+                                <option>Trabajo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="m-4">
+                        <label class="label" for="ip-date-new">Fecha</label>
+                        <input class="input" id="ip-date-new" type="date" />
+                    </div>
+                    <div class="m-6 is-flex is-justify-content-flex-end">
+                        <button class="button is-light">Cancelar</button>
+                        <button class="button is-link ml-2">Agregar</button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
     </main>
-  </body>
+</body>
+
 </html>
