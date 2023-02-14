@@ -5,6 +5,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- estilos css -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -34,15 +40,15 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-info">
+                            <a class="button is-info" id="btn-balance">
                                 Balance
                                 <i class="fa-solid fa-arrow-trend-up ml-2"></i>
                             </a>
-                            <a class="button is-info">
+                            <a class="button is-info" id="btn-category">
                                 Categorias
                                 <i class="fa-solid fa-tag ml-2"></i>
                             </a>
-                            <a class="button is-info">
+                            <a class="button is-info" id="btn-report">
                                 Reportes
                                 <i class="fa-solid fa-chart-pie ml-2"></i>
                             </a>
@@ -55,7 +61,7 @@
 
     <main class="has-background-light">
         <!-- vista principal de balance -->
-        <section class="section pt-6">
+        <section class="section pt-6" id="balance-cont">
             <div class="container">
                 <div class="columns is-centered mt-4">
                     <div class="column is-3 has-background-light">
@@ -137,7 +143,7 @@
                         </div>
 
                         <div class="image m-6">
-                            <img src="imagenes/balance-a.svg" alt="imagen representativa a operaciones" />
+                            <img src="imagenes/undraw_discount_d-4-bd.svg" alt="imagen representativa a operaciones" />
                         </div>
 
                         <div class="has-text-centered m-5">
@@ -150,7 +156,7 @@
         </section>
 
         <!-- vista secundaria de balance---Nueva Operacion -->
-        <section class="section">
+        <section class="section  is-hidden">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
@@ -198,7 +204,7 @@
             </div>
         </section>
 
-        <section class="section">
+        <section class="section is-hidden" id="category-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-5">Categorías</h2>
@@ -214,13 +220,13 @@
             </div>
         </section>
 
-        <section class="section">
+        <section class="section is-hidden" id="reports-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-5">Reportes</h2>
                     <div class="cont-report">
                         <div class="image m-6 img-report">
-                            <img src="imagenes/reporte.svg" alt="" />
+                            <img src="imagenes/undraw_report_re_f5n5.svg" alt="" />
                         </div>
                         <div class="has-text-centered m-5">
                             <h4 class="has-text-weight-bold m-5">
@@ -232,67 +238,68 @@
                 </div>
             </div>
         </section>
+        <section class="section is-hidden">
+            <div class="container is-flex is-justify-content-center pt-6">
+                <div class="column is-8 box m-4">
+                    <h2 class="title is-2 has-text-weight-bold m-4 pb-5">Reportes</h2>
 
-        <section class="container is-flex is-justify-content-center pt-6">
-            <div class="column is-8 box m-4">
-                <h2 class="title is-2 has-text-weight-bold m-
-                
-                
+
                     <div>
                         <h4 class=" title is-4 m-4">Resumen</h4>
-                    <div class="mb-6 has-text-weight-semibold">
-                        <div class="columns is-mobile">
-                            <div class="column">Categoría con mayor ganancia</div>
-                            <div class="column"></div>
-                            <div class="column"></div>
+                        <div class="mb-6 has-text-weight-semibold">
+                            <div class="columns is-mobile">
+                                <div class="column">Categoría con mayor ganancia</div>
+                                <div class="column"></div>
+                                <div class="column"></div>
+                            </div>
+                            <div class="columns is-mobile">
+                                <div class="column">Categoría con mayor gasto</div>
+                                <div class="column"></div>
+                                <div class="column"></div>
+                            </div>
+                            <div class="columns is-mobile">
+                                <div class="column">Categoría con mayor balance</div>
+                                <div class="column"></div>
+                                <div class="column"></div>
+                            </div>
+                            <div class="columns is-mobile">
+                                <div class="column">Mes con mayor ganancia</div>
+                                <div class="column"></div>
+                                <div class="column"></div>
+                            </div>
+                            <div class="columns is-mobile">
+                                <div class="column">Mes con mayor gasto</div>
+                                <div class="column"></div>
+                                <div class="column"></div>
+                            </div>
                         </div>
-                        <div class="columns is-mobile">
-                            <div class="column">Categoría con mayor gasto</div>
-                            <div class="column"></div>
-                            <div class="column"></div>
-                        </div>
-                        <div class="columns is-mobile">
-                            <div class="column">Categoría con mayor balance</div>
-                            <div class="column"></div>
-                            <div class="column"></div>
-                        </div>
-                        <div class="columns is-mobile">
-                            <div class="column">Mes con mayor ganancia</div>
-                            <div class="column"></div>
-                            <div class="column"></div>
-                        </div>
-                        <div class="columns is-mobile">
-                            <div class="column">Mes con mayor gasto</div>
-                            <div class="column"></div>
-                            <div class="column"></div>
+
+                    </div>
+                    <div>
+                        <h4 class="title is-4 m-4">Totales por categorías</h4>
+                        <div class="columns is-mobile mb-6 has-text-weight-semibold">
+                            <div class="column">Categoría</div>
+                            <div class="column">Ganancia</div>
+                            <div class="column">Gastos</div>
+                            <div class="column">Balance</div>
                         </div>
                     </div>
-
-            </div>
-            <div>
-                <h4 class="title is-4 m-4">Totales por categorías</h4>
-                <div class="columns is-mobile mb-6 has-text-weight-semibold">
-                    <div class="column">Categoría</div>
-                    <div class="column">Ganancia</div>
-                    <div class="column">Gastos</div>
-                    <div class="column">Balance</div>
+                    <div>
+                        <h4 class="title is-4 m-4">Totales por mes</h4>
+                        <div class="columns is-mobile mb-6 has-text-weight-semibold">
+                            <div class="column">Mes</div>
+                            <div class="column">Ganancia</div>
+                            <div class="column">Gastos</div>
+                            <div class="column">Balance</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <h4 class="title is-4 m-4">Totales por mes</h4>
-                <div class="columns is-mobile mb-6 has-text-weight-semibold">
-                    <div class="column">Mes</div>
-                    <div class="column">Ganancia</div>
-                    <div class="column">Gastos</div>
-                    <div class="column">Balance</div>
-                </div>
-            </div>
             </div>
             </div>
         </section>
     </main>
-     <!-- para el javascript -->
-     <script src="main.js"></script>
+    <!-- para el javascript -->
+    <script src="main.js"></script>
 </body>
 
 </html>
