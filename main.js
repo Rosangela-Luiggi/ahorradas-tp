@@ -17,6 +17,14 @@ const $containerBalance = $("#balance-cont");
 const $containerCategory = $("#category-cont");
 const $containerReports = $("#reports-cont");
 
+// boton para ocultar filtros
+const $btnFilter = $("#btn-filter");
+const $containerFilter = $(".filter");
+
+//mostrar y cerrar nueva operacion
+const $btnNewOp = $("#new-operation");
+const $newOperacion = $("#operation-cont");
+const $btnCancelOp = $("#close");
 
 /* FUNCIONES */
 //activar el menu burgur
@@ -24,6 +32,7 @@ const activeNacBar = () =>{
     $navEnd.classList.toggle("is-active");
     $btnNavBar.classList.toggle("is-active");
 }
+
 
 
 /* EVENTOS */
@@ -43,6 +52,7 @@ $btnNavBar.addEventListener("click", activeNacBar);
   btnCategory.addEventListener("click", ocultar($containerCategory ));
   btnReports.addEventListener("click", ocultar($containerReports)); */
 
+  //cambio de vistas
   btnBalance.addEventListener("click", () =>  {
     $containerBalance.classList.remove("is-hidden");
     $containerCategory.classList.add("is-hidden");
@@ -61,7 +71,22 @@ $btnNavBar.addEventListener("click", activeNacBar);
     $containerBalance.classList.add("is-hidden");
     
   });
+  //ocultar filtro
 
+  $btnFilter.addEventListener("click", () =>  {
+    $containerFilter.classList.toggle("is-hidden");
+  });
+
+//mostrar y cerrar nueva operacion
+  $btnNewOp.addEventListener("click", () =>  {
+    $containerBalance.classList.add("is-hidden");
+    $newOperacion.classList.remove("is-hidden");
+  });
+
+  $btnCancelOp.addEventListener("click", () =>  {
+    $newOperacion.classList.add("is-hidden");
+    $containerBalance.classList.remove("is-hidden");
+  });
 
 
 

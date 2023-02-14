@@ -84,62 +84,64 @@
                         <div class="box pt-2">
                             <div class="is-flex is-justify-content-space-between">
                                 <h3 class="title is-3">Filtros</h3>
-                                <button class="button is-white">Ocultar Filtros</button>
+                                <button class="button is-white" id="btn-filter">Ocultar Filtros</button>
                             </div>
-
-                            <div class="mt-4">
-                                <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
-                                <div class="select is-fullwidth">
-                                    <select>
-                                        <option>Todos</option>
-                                        <option>Gastos</option>
-                                        <option>Ganancia</option>
-                                    </select>
+                            <div class="filter">
+                                <div class="mt-4">
+                                    <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Todos</option>
+                                            <option>Gastos</option>
+                                            <option>Ganancia</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mt-4">
-                                <h4 class="title is-6 has-text-weight-bold mb-2">
-                                    Categoría
-                                </h4>
-                                <div class="select is-fullwidth">
-                                    <select>
-                                        <option>Todos</option>
-                                        <option>Comidas</option>
-                                        <option>Servicios</option>
-                                        <option>Salidas</option>
-                                        <option>Educación</option>
-                                        <option>Transporte</option>
-                                        <option>Trabajo</option>
-                                    </select>
+                                <div class="mt-4">
+                                    <h4 class="title is-6 has-text-weight-bold mb-2">
+                                        Categoría
+                                    </h4>
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Todos</option>
+                                            <option>Comidas</option>
+                                            <option>Servicios</option>
+                                            <option>Salidas</option>
+                                            <option>Educación</option>
+                                            <option>Transporte</option>
+                                            <option>Trabajo</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="mt-4">
-                                <label class="label" for="ip-date">Desde</label>
-                                <input class="input" id="ip-date" type="date" />
-                            </div>
+                                <div class="mt-4">
+                                    <label class="label" for="ip-date">Desde</label>
+                                    <input class="input" id="ip-date" type="date" />
+                                </div>
 
-                            <div class="mt-4">
-                                <h4 class="title is-6 has-text-weight-bold mb-2"></h4>
-                                <div class="select is-fullwidth">
-                                    <select>
-                                        <option>Más reciente</option>
-                                        <option>Menos reciente</option>
-                                        <option>Mayor monto</option>
-                                        <option>Menor monto</option>
-                                        <option>A/Z</option>
-                                        <option>Z/A</option>
-                                    </select>
+                                <div class="mt-4">
+                                    <h4 class="title is-6 has-text-weight-bold mb-2"></h4>
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Más reciente</option>
+                                            <option>Menos reciente</option>
+                                            <option>Mayor monto</option>
+                                            <option>Menor monto</option>
+                                            <option>A/Z</option>
+                                            <option>Z/A</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="column is-7 m-3 has-background-white box">
                         <div class="is-flex m-4 is-justify-content-space-between">
                             <h3 class="title is-3">Operaciones</h3>
-                            <a class="button is-info">+ Nueva operación</a>
+                            <a class="button is-info" id="new-operation">+ Nueva operación</a>
                         </div>
 
                         <div class="image m-6">
@@ -156,7 +158,7 @@
         </section>
 
         <!-- vista secundaria de balance---Nueva Operacion -->
-        <section class="section  is-hidden">
+        <section class="section  is-hidden" id="operation-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
@@ -197,7 +199,7 @@
                         <input class="input" id="ip-date-new" type="date" />
                     </div>
                     <div class="m-6 is-flex is-justify-content-flex-end">
-                        <button class="button is-light">Cancelar</button>
+                        <button class="button is-light" id="close">Cancelar</button>
                         <button class="button is-link ml-2">Agregar</button>
                     </div>
                 </div>
