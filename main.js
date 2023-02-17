@@ -3,7 +3,7 @@ const $ = (elemento) => document.querySelector(elemento);
 let category = [];
 
 window.addEventListener("load", function () {
-
+  category = JSON.parse(localStorage.getItem("datosCtg"))
     /*  VARIABLES*/
     //menu desplegable
 const $btnNavBar = $(".navbar-burger");
@@ -40,6 +40,16 @@ const activeNacBar = () =>{
     $navEnd.classList.toggle("is-active");
     $btnNavBar.classList.toggle("is-active");
 }
+
+//agrega una nueva categoria
+let agregarCategoria = () => {
+  category.push({ 
+    id: crypto.randomUUID(),
+    titulo: $inputcategory.value
+                  });
+    localStorage.setItem("datosCtg",JSON.stringify(category));
+        return paintCategory();
+  };
 
 
 
@@ -83,27 +93,20 @@ $btnNavBar.addEventListener("click", activeNacBar);
     $containerBalance.classList.remove("is-hidden");
   });
 
- /* ----------------------crear tarea------------- */
- let agregarCategoria = () => {
-  category.push({ 
-    id: crypto.randomUUID(),
-    titulo: $inputcategory.value
-                  });
-        return paintCategory($ctgNewcategory, category);
-  };
- 
+ /* ----------------------categoria------------- */
+ //crear nueva categoria
   $formNewcategory.addEventListener("submit", (e) => {
     e.preventDefault();
       agregarCategoria();
   });
 
-const paintCategory = (container, array) => {
-  container.innerHTML = "";
-  array.forEach((elem) => {
-    container.innerHTML += `<div class="m-4">
+const paintCategory = () => {
+  $ctgNewcategory.innerHTML = "";
+  category.forEach((elem) => {
+    $ctgNewcategory.innerHTML += `<div class="m-4">
     <div class="columns is-mobile px-4">
       <div class="column is-9"><span class=" column tag is-primary is-light">${elem.titulo}</span></div>
-      <div class="column is-1"><button class="button tag is-link is-inverted" id=${elem.id}>Editar</button></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted .btn-edit" id=${elem.id}>Editar</button></div>
       <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
     </div>
     </div>`;
@@ -113,12 +116,13 @@ const paintCategory = (container, array) => {
     btn.addEventListener("click", (e) => {
       let idAEliminar = e.target.id;
       category = category.filter((items) => items.id !== idAEliminar);
-      paintCategory($ctgNewcategory, category);
+      localStorage.setItem("datosCtg",JSON.stringify(category));
+      paintCategory();
     });
   });
 
 };
-paintCategory($ctgNewcategory, category);
+paintCategory();
 
 
 
