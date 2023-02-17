@@ -32,6 +32,9 @@ const $btnCancelOp = $("#close");
 const $inputcategory = $("#ipt-text-name");
 const $ctgNewcategory = $("#container-ctg");
 const $formNewcategory = $("#form-category");
+const $conEditCtg = $("#category-edit");
+const $inputEdit = $("#ipt-text-edit");
+const $formEdit= $("#form-edit");
 
 
 /* FUNCIONES */
@@ -62,18 +65,21 @@ $btnNavBar.addEventListener("click", activeNacBar);
     $containerBalance.classList.remove("is-hidden");
     $containerCategory.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
+    $conEditCtg.classList.add("is-hidden");
   });
 
   btnCategory.addEventListener("click", () =>  {
     $containerCategory.classList.remove("is-hidden");
     $containerBalance.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
+    $conEditCtg.classList.add("is-hidden");
   });
 
   btnReports.addEventListener("click", () =>  {
     $containerReports.classList.remove("is-hidden");
     $containerCategory.classList.add("is-hidden");
     $containerBalance.classList.add("is-hidden");
+    $conEditCtg.classList.add("is-hidden");
     
   });
   //ocultar filtro
@@ -100,13 +106,15 @@ $btnNavBar.addEventListener("click", activeNacBar);
       agregarCategoria();
   });
 
+  
+
 const paintCategory = () => {
   $ctgNewcategory.innerHTML = "";
   category.forEach((elem) => {
     $ctgNewcategory.innerHTML += `<div class="m-4">
     <div class="columns is-mobile px-4">
       <div class="column is-9"><span class=" column tag is-primary is-light">${elem.titulo}</span></div>
-      <div class="column is-1"><button class="button tag is-link is-inverted .btn-edit" id=${elem.id}>Editar</button></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" id=${elem.id}>Editar</button></div>
       <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
     </div>
     </div>`;
@@ -121,8 +129,25 @@ const paintCategory = () => {
     });
   });
 
+  let $btnEdit = document.querySelectorAll(".btn-edit");
+  $btnEdit.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        $containerCategory.classList.add("is-hidden");
+        $conEditCtg.classList.remove("is-hidden");
+          const categoryEdit = category.find(option => option.id === e.target.id);
+          $inputEdit.value = categoryEdit.titulo;
+      });
+    });
 };
+
 paintCategory();
+
+
+/* $formEdit.addEventListener("submit", (e) => {
+  e.preventDefault();
+  category.titulo = $inputEdit.value;
+}); */
+
 
 
 
