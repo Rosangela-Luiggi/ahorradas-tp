@@ -1,5 +1,7 @@
 const $ = (elemento) => document.querySelector(elemento);
 
+let category = [];
+
 window.addEventListener("load", function () {
 
     /*  VARIABLES*/
@@ -26,6 +28,12 @@ const $btnNewOp = $("#new-operation");
 const $newOperacion = $("#operation-cont");
 const $btnCancelOp = $("#close");
 
+//seccion de crear categoria
+const $inputcategory = $("#ipt-text-name");
+const $ctgNewcategory = $("#container-ctg");
+const $formNewcategory = $("#form-category");
+
+
 /* FUNCIONES */
 //activar el menu burgur
 const activeNacBar = () =>{
@@ -38,19 +46,6 @@ const activeNacBar = () =>{
 /* EVENTOS */
 // evento menu burgur 
 $btnNavBar.addEventListener("click", activeNacBar);
-
-
- 
-  /* let ocultar =(container)=>{
-    let $hiddeViews = document.querySelectorAll(".section");
- $hiddeViews.classList.add("is-hidden");
- container.classList.remove("is-hidden");
- container.classList.add("is-active");
-
-  }
-  btnBalance.addEventListener("click", ocultar($containerBalance));
-  btnCategory.addEventListener("click", ocultar($containerCategory ));
-  btnReports.addEventListener("click", ocultar($containerReports)); */
 
   //cambio de vistas
   btnBalance.addEventListener("click", () =>  {
@@ -87,6 +82,49 @@ $btnNavBar.addEventListener("click", activeNacBar);
     $newOperacion.classList.add("is-hidden");
     $containerBalance.classList.remove("is-hidden");
   });
+
+ /* ----------------------crear tarea------------- */
+ let agregarCategoria = () => {
+  category.push({ 
+    id: crypto.randomUUID(),
+    titulo: $inputcategory.value
+                  });
+        return paintCategory($ctgNewcategory, category);
+  };
+ 
+  $formNewcategory.addEventListener("submit", (e) => {
+    e.preventDefault();
+      agregarCategoria();
+  });
+
+const paintCategory = (container, array) => {
+  container.innerHTML = "";
+  array.forEach((elem) => {
+    container.innerHTML += `<div class="m-4">
+    <div class="columns is-mobile px-4">
+      <div class="column is-9"><span class=" column tag is-primary is-light">${elem.titulo}</span></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted" id=${elem.id}>Editar</button></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
+    </div>
+    </div>`;
+  });
+  let $btnDelete = document.querySelectorAll(".btn-delete");
+  $btnDelete.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      let idAEliminar = e.target.id;
+      category = category.filter((items) => items.id !== idAEliminar);
+      paintCategory($ctgNewcategory, category);
+    });
+  });
+
+};
+paintCategory($ctgNewcategory, category);
+
+
+
+
+
+  
 
 
 

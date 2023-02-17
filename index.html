@@ -205,19 +205,21 @@
                 </div>
             </div>
         </section>
-
+        <!-- crear categoria -->
         <section class="section is-hidden" id="category-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-5">Categorías</h2>
-                    <div class="m-4">
+                    <form class="m-4" id="form-category">
                         <label class="label" for="ipt-text-name">Nombre</label>
                         <div class="is-flex">
+
                             <input class="input" id="ipt-text-name" type="text" />
-                            <button class="button is-info ml-2">Agregar</button>
+
+                            <button class="button is-info ml-2" type="submit">Agregar</button>
                         </div>
-                        <div class="m-4 py-3"></div>
-                    </div>
+                        <div class="m-4 py-3" id="container-ctg"></div>
+                    </form>
                 </div>
             </div>
         </section>
