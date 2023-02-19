@@ -1,10 +1,9 @@
 const $ = (elemento) => document.querySelector(elemento);
 
 
-let operation = [];
-
 window.addEventListener("load", function () {
    let category = localStorage.getItem("datosCtg") ? JSON.parse(localStorage.getItem("datosCtg")) : [];
+   let operation = localStorage.getItem("datosOp") ? JSON.parse(localStorage.getItem("datosOp")) : [];
   let categoryToEdit;       
   /*  VARIABLES*/
   //menu desplegable
@@ -39,7 +38,7 @@ window.addEventListener("load", function () {
   const $formEdit = $("#a");
   const $btnCEdit = $("#cancel-edit")
 
-/*   //seccion de operaciones
+  //seccion de operaciones
  const $formOperat = $("#form-operation");
   const $inputDescrip = $("#ipt-operations");
   const $inputMonto = $("#ipt-amount");
@@ -48,7 +47,7 @@ window.addEventListener("load", function () {
   const $inputDate = $("#ip-date-new");
 
   const $containNewOpt = $(".contain-opt");
-  const $infoOpt = $(".inf"); */ 
+  const $infoOpt = $(".inf"); 
 
  
   
@@ -61,7 +60,24 @@ window.addEventListener("load", function () {
     $navEnd.classList.toggle("is-active");
     $btnNavBar.classList.toggle("is-active");
   }
+  /* --------funciones para la seccion balance/operaciones------- */
+  let agregarOperacion = () => {
+    $infoOpt.innerHTML ="";
+    operation.push({
+      id: crypto.randomUUID(),
+      description: $inputDescrip.value,
+      category: $selectCtg.value,
+      date: $inputDate.value,
+      type: $selectOperat.value,
+      amount: $inputMonto.value,
+      
+    });
+    localStorage.setItem("datosOp", JSON.stringify(operation));
+    return paintOperation();
+  };
 
+
+/* --------funciones para la seccion categoria------- */
   //agrega una nueva categoria
   let agregarCategoria = () => {
     category.push({
@@ -95,7 +111,7 @@ window.addEventListener("load", function () {
     $containerCategory.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
-   /*  $containNewOpt.classList.add("is-hidden"); */
+    $newOperacion.classList.add("is-hidden");
   });
 
   btnCategory.addEventListener("click", () => {
@@ -103,7 +119,7 @@ window.addEventListener("load", function () {
     $containerBalance.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
-    /* $containNewOpt.classList.toggle("is-hidden"); */
+    $newOperacion.classList.add("is-hidden");
   });
 
   btnReports.addEventListener("click", () => {
@@ -111,7 +127,7 @@ window.addEventListener("load", function () {
     $containerCategory.classList.add("is-hidden");
     $containerBalance.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
-   /*  $containNewOpt.classList.add("is-hidden"); */
+    $newOperacion.classList.add("is-hidden");
 
   });
   //ocultar filtro
@@ -132,20 +148,8 @@ window.addEventListener("load", function () {
   });
 
   /* -------------------inicio de operaciones------------------- */
-/* 
-  let agregarOperacion = () => {
-    operation.push({
-      id: crypto.randomUUID(),
-      description: $inputDescrip.value,
-      category: $selectCtg.value,
-      date: $inputDate.value,
-      type: $selectOperat.value,
-      amount: $inputMonto.value,
-      
-    });
-    localStorage.setItem("datosOp", JSON.stringify(operation));
-    return paintOperation();
-  };
+
+  
 
   $formOperat.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -158,14 +162,14 @@ window.addEventListener("load", function () {
      $containNewOpt.innerHTML +=
       `<div class=" container m-4">
     <div class="columns is-mobile mb-6 has-text-weight-semibold">
-        <div class="column">Descrición</div>
+        <div class="column">Descripción</div>
         <div class="column">Categoría</div>
         <div class="column">Fecha</div>
         <div class="column">Monto</div>
         <div class="column">Acciones</div>
     </div>
     <div class="columns is-mobile mb-6 ">
-        <div class="column tag is-info is-light">${option.description}</div>
+        <div class="column tag is-info is-light is-size-7 has-text-link-dark">${option.description}</div>
         <div class="column">${option.category}</div>
         <div class="column">${option.date}</div>
         <div class="column">${option.Tipo == "Ingreso" ? "+" : "-"}${option.amount}</div>
@@ -187,13 +191,11 @@ window.addEventListener("load", function () {
       });
     });
   };
-  paintOperation(); */
+  paintOperation(); 
 
 
 
   /* ----------------------inicio categoria-------------------- */
-
-  
    //crear nueva categoria
   $formNewcategory.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -205,6 +207,7 @@ window.addEventListener("load", function () {
     editCategory();
     $conEditCtg.classList.add("is-hidden");
     $containerCategory.classList.remove("is-hidden");
+    $inputcategory.value ="";
   });
 
   const paintCategory = () => {
@@ -212,7 +215,7 @@ window.addEventListener("load", function () {
     category.forEach((elem) => {
       $ctgNewcategory.innerHTML += `<div class="m-4">
     <div class="columns is-mobile px-4">
-      <div class="column is-9"><span class=" column tag is-primary is-light">${elem.titulo}</span></div>
+      <div class="column is-9"><span class=" column tag is-info is-light is-size-6 has-text-link-dark">${elem.titulo}</span></div>
       <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id}>Editar</button></div>            
       <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
     </div>
