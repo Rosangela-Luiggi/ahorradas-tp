@@ -2,9 +2,10 @@ const $ = (elemento) => document.querySelector(elemento);
 
 
 window.addEventListener("load", function () {
-   let category = localStorage.getItem("datosCtg") ? JSON.parse(localStorage.getItem("datosCtg")) : [];
-   let operation = localStorage.getItem("datosOp") ? JSON.parse(localStorage.getItem("datosOp")) : [];
-  let categoryToEdit;       
+   let category = localStorage.getItem("datos") ? JSON.parse(localStorage.getItem("datos")) : [];
+   let operation = localStorage.getItem("datos") ? JSON.parse(localStorage.getItem("datos")) : [];
+  let categoryToEdit;
+  let operationToEdit;       
   /*  VARIABLES*/
   //menu desplegable
   const $btnNavBar = $(".navbar-burger");
@@ -38,7 +39,7 @@ window.addEventListener("load", function () {
   const $formEdit = $("#a");
   const $btnCEdit = $("#cancel-edit")
 
-  //seccion de operaciones
+  //seccion de crear operaciones
  const $formOperat = $("#form-operation");
   const $inputDescrip = $("#ipt-operations");
   const $inputMonto = $("#ipt-amount");
@@ -47,7 +48,20 @@ window.addEventListener("load", function () {
   const $inputDate = $("#ip-date-new");
 
   const $containNewOpt = $(".contain-opt");
-  const $infoOpt = $(".inf"); 
+  const $infoOpt = $(".inf");
+  
+  //seccion de editar operaciones
+  const sectionEdit = $("#operation-Edit");
+  const $inputEditOp = $("#ipt-editop");
+  const $inptMontoedt = $("#ipt-amount-ed");
+  const $selectEditType = $("#selec-type-ed");
+    const $selectEditCtg = $("#selec-ctg-ed");
+    const $inpEditDate = $("#ip-date-ed");
+    const $formOpEdit = $("#form-op-edit");
+    const $btnCancelEdit = $("#close-ed");
+
+
+
 
  
   
@@ -72,8 +86,23 @@ window.addEventListener("load", function () {
       amount: $inputMonto.value,
       
     });
-    localStorage.setItem("datosOp", JSON.stringify(operation));
+    localStorage.setItem("datos", JSON.stringify(operation));
     return paintOperation();
+  };
+
+  let editOperation = () => {
+    operation = operation.map((dato) => {
+      if (dato.id === operationToEdit.id) {    
+        dato.description = $inputEditOp.value;
+        dato.category = $selectEditCtg.value;
+        dato.date = $inpEditDate.value;
+        dato.type = $selectEditType.value;
+        dato.amount = $inptMontoedt.value;
+      }
+      return dato;    
+    });
+    localStorage.setItem("datos", JSON.stringify(operation));
+    paintOperation();            
   };
 
 
@@ -84,7 +113,7 @@ window.addEventListener("load", function () {
       id: crypto.randomUUID(),
       titulo: $inputcategory.value
     });
-    localStorage.setItem("datosCtg", JSON.stringify(category));
+    localStorage.setItem("datos", JSON.stringify(category));
     return paintCategory();
   };
   let editCategory = () => {
@@ -94,12 +123,9 @@ window.addEventListener("load", function () {
       }
       return item;    
     });
-    localStorage.setItem("datosCtg", JSON.stringify(category));
+    localStorage.setItem("datos", JSON.stringify(category));
     paintCategory();            
   };
-
-
-
 
   /* EVENTOS */
   // evento menu burgur 
@@ -149,11 +175,13 @@ window.addEventListener("load", function () {
 
   /* -------------------inicio de operaciones------------------- */
 
-  
-
   $formOperat.addEventListener("submit", (e) => {
     e.preventDefault();
     agregarOperacion();
+  });
+  $formOpEdit.addEventListener("submit", (e) => {
+    e.preventDefault();
+    editOperation();
   });
 
   const paintOperation = () => {
@@ -174,7 +202,7 @@ window.addEventListener("load", function () {
         <div class="column">${option.date}</div>
         <div class="column">${option.Tipo == "Ingreso" ? "+" : "-"}${option.amount}</div>
         <div class="column">
-        <button class="button tag is-link is-inverted btn-editOp" id=${option.id}>Editar</button>
+        <button class="button tag is-link is-inverted btn-editOp" type="button" id=${option.id}>Editar</button>
         <button class="button tag is-link is-inverted btn-deleteOp" id=${option.id}>Eliminar</button>
         </div>
     </div>
@@ -183,30 +211,29 @@ window.addEventListener("load", function () {
     });
     let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
     $btnDeleteOp.forEach((btnOp) => {
-      console.log(btnOp)
       btnOp.addEventListener("click", (e) => {
         operation = operation.filter((item) => item.id !== e.target.id);
-        localStorage.setItem("datosOp", JSON.stringify(category));
+        localStorage.setItem("datos", JSON.stringify(operation));
         paintOperation();
       });
     });
+      let $btnEditOp = document.querySelectorAll(".btn-editOp");
+    $btnEditOp.forEach((btnOp) => {
+      btnOp.addEventListener("click", (e) => {
+        $containerBalance.classList.add("is-hidden");
+        $newOperacion.classList.add("is-hidden");
+        sectionEdit.classList.remove("is-hidden");
+        operationToEdit = category.find(opt => opt.id === e.target.id);        // AHORA GUARDO EN LA VARIABLE QUE CREE AL INICIO LA CATEGORIA A EDITAR
+        $inputEditOp.value = operationToEdit.description;
+        $selectEditCtg.value = operationToEdit.category;    
+        $inpEditDate.value = operationToEdit.date;    
+        $selectEditType.value = operationToEdit.type;   
+        $inptMontoedt.value = operationToEdit.amount;        // AHORA PUEDO APUNTAR A LA NUEVA VARIABLE categoryToEdit
+      });
+    });
+  
   };
   paintOperation(); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /* ----------------------inicio categoria-------------------- */
    //crear nueva categoria
@@ -239,7 +266,7 @@ window.addEventListener("load", function () {
       btn.addEventListener("click", (e) => {
         let idAEliminar = e.target.id;
         category = category.filter((items) => items.id !== idAEliminar);
-        localStorage.setItem("datosCtg", JSON.stringify(category));
+        localStorage.setItem("datos", JSON.stringify(category));
         paintCategory();
       });
     });

@@ -59,7 +59,7 @@
         </nav>
     </header>
 
-    <main class="has-background-light">
+    <main class="has-background-light hero is-fullheight">
         <!-- vista principal de balance -->
         <section class="section pt-6" id="balance-cont">
             <div class="container">
@@ -165,7 +165,7 @@
         </section>
 
         <!-- vista secundaria de balance---Nueva Operacion -->
-        <section class="section  is-hidden" id="operation-cont">
+        <section class="section is-hidden" id="operation-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
@@ -178,7 +178,7 @@
                         </div>
                         <div class="m-4">
                             <label class="label" for="ipt-amount">Monto</label>
-                            <input class="input" id="ipt-amount" type="number" value="8" />
+                            <input class="input" id="ipt-amount" type="number" value="0" />
                         </div>
                         <div class="m-4">
                             <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
@@ -214,9 +214,60 @@
                 </div>
             </div>
         </section>
+
+        <!-- seccion ´para editar informacion -->
+        <section class="section  is-hidden" id="operation-Edit">
+            <div class="container is-flex is-justify-content-center pt-6">
+                <div class="column is-8 box m-4">
+                    <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
+                       Editar Operación
+                    </h2>
+                    <form id="form-op-edit">
+                        <div class="m-4">
+                            <label class="label" for="ipt-editop">Descripción</label>
+                            <input class="input" id="ipt-editop" type="text" />
+                        </div>
+                        <div class="m-4">
+                            <label class="label" for="ipt-amount-ed">Monto</label>
+                            <input class="input" id="ipt-amount-ed" type="number" value="8" />
+                        </div>
+                        <div class="m-4">
+                            <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
+                            <div class="select is-fullwidth">
+                                <select id="selec-type-ed">
+                                    <option>Gastos</option>
+                                    <option>Ganancia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="m-4">
+                            <h4 class="title is-6 has-text-weight-bold mb-2">Categorías</h4>
+                            <div class="select is-fullwidth">
+                                <select id="selec-ctg-ed">
+                                    <option>Comidas</option>
+                                    <option>Servicios</option>
+                                    <option>Salidas</option>
+                                    <option>Educación</option>
+                                    <option>Transporte</option>
+                                    <option>Trabajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="m-4">
+                            <label class="label" for="ip-date-ed">Fecha</label>
+                            <input class="input" id="ip-date-ed" type="date" />
+                        </div>
+                        <div class="m-6 is-flex is-justify-content-flex-end">
+                            <button class="button is-light" id="close-ed">Cancelar</button>
+                            <button class="button is-link ml-2">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
         <!-- crear categoria -->
         <section class="section is-hidden" id="category-cont">
-            <div class="container is-flex is-justify-content-center pt-6">
+            <div class="container is-flex is-justify-content-center  pt-6">
                 <div class="column is-8 box m-4">
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-5">Categorías</h2>
                     <form class="m-4" id="form-category">
@@ -242,7 +293,7 @@
                         <input class="input" id="b" type="text" />
                         <div class="mt-6 p-4 is-flex is-justify-content-flex-end">
                             <button class="button" id="cancel-edit">Cancelar</button>
-                            <button class="button is-info ml-2" id="btn-edit-new" type="submit">Editar</button>
+                            <button class="button is-info ml-2" id="btn-edit" type="submit">Editar</button>
                         </div>
                     </form>
 
