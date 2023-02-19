@@ -183,15 +183,28 @@ window.addEventListener("load", function () {
     });
     let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
     $btnDeleteOp.forEach((btnOp) => {
+      console.log(btnOp)
       btnOp.addEventListener("click", (e) => {
-        let idAEliminarOp = e.target.id;
-        category = category.filter((items) => items.id !== idAEliminarOp);
-        localStorage.setItem("datosCtg", JSON.stringify(category));
+        operation = operation.filter((item) => item.id !== e.target.id);
+        localStorage.setItem("datosOp", JSON.stringify(category));
         paintOperation();
       });
     });
   };
   paintOperation(); 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
