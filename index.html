@@ -65,6 +65,7 @@
             <div class="container">
                 <div class="columns is-centered mt-4">
                     <div class="column is-3 has-background-light">
+                        <!-- box balance -->
                         <div class="box pb-2">
                             <h4 class="title is-3 is-spaced">Balance</h4>
                             <div class="is-flex is-justify-content-space-between">
@@ -80,7 +81,7 @@
                                 <span class="has-text-weight-bold">$0</span>
                             </div>
                         </div>
-
+                        <!--    box filtros balance -->
                         <div class="box pt-2">
                             <div class="is-flex is-justify-content-space-between">
                                 <h3 class="title is-3">Filtros</h3>
@@ -137,20 +138,25 @@
                         </div>
 
                     </div>
-
+                    <!-- box operaciones -->
                     <div class="column is-7 m-3 has-background-white box">
                         <div class="is-flex m-4 is-justify-content-space-between">
                             <h3 class="title is-3">Operaciones</h3>
                             <a class="button is-info" id="new-operation">+ Nueva operación</a>
                         </div>
+                        <div class=" m-6">
+                            <div class="contain-opt"> </div>
+                            <div class="inf">
+                                <div class="image m-6">
+                                    <img src="imagenes/undraw_discount_d-4-bd.svg"
+                                        alt="imagen representativa a operaciones" />
+                                </div>
 
-                        <div class="image m-6">
-                            <img src="imagenes/undraw_discount_d-4-bd.svg" alt="imagen representativa a operaciones" />
-                        </div>
-
-                        <div class="has-text-centered m-5">
-                            <h4 class="has-text-weight-bold m-5">Sin Resultados</h4>
-                            <p>Cambia los filtros o agrega operaciones</p>
+                                <div class="has-text-centered m-5">
+                                    <h4 class="has-text-weight-bold m-5">Sin Resultados</h4>
+                                    <p>Cambia los filtros o agrega operaciones</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -164,44 +170,46 @@
                     <h2 class="title is-2 has-text-weight-bold m-4 pb-6">
                         Nueva Operación
                     </h2>
-                    <div class="m-4">
-                        <label class="label" for="ipt-operations">Descripción</label>
-                        <input class="input" id="ipt-operations" type="text" />
-                    </div>
-                    <div class="m-4">
-                        <label class="label" for="ipt-amount">Monto</label>
-                        <input class="input" id="ipt-amount" type="number" value="8" />
-                    </div>
-                    <div class="m-4">
-                        <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
-                        <div class="select is-fullwidth">
-                            <select>
-                                <option>Gastos</option>
-                                <option>Ganancia</option>
-                            </select>
+                    <form id="form-operation">
+                        <div class="m-4">
+                            <label class="label" for="ipt-operations">Descripción</label>
+                            <input class="input" id="ipt-operations" type="text" />
                         </div>
-                    </div>
-                    <div class="m-4">
-                        <h4 class="title is-6 has-text-weight-bold mb-2">Categorías</h4>
-                        <div class="select is-fullwidth">
-                            <select>
-                                <option>Comidas</option>
-                                <option>Servicios</option>
-                                <option>Salidas</option>
-                                <option>Educación</option>
-                                <option>Transporte</option>
-                                <option>Trabajo</option>
-                            </select>
+                        <div class="m-4">
+                            <label class="label" for="ipt-amount">Monto</label>
+                            <input class="input" id="ipt-amount" type="number" value="8" />
                         </div>
-                    </div>
-                    <div class="m-4">
-                        <label class="label" for="ip-date-new">Fecha</label>
-                        <input class="input" id="ip-date-new" type="date" />
-                    </div>
-                    <div class="m-6 is-flex is-justify-content-flex-end">
-                        <button class="button is-light" id="close">Cancelar</button>
-                        <button class="button is-link ml-2">Agregar</button>
-                    </div>
+                        <div class="m-4">
+                            <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
+                            <div class="select is-fullwidth">
+                                <select id="selec-type">
+                                    <option>Gastos</option>
+                                    <option>Ganancia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="m-4">
+                            <h4 class="title is-6 has-text-weight-bold mb-2">Categorías</h4>
+                            <div class="select is-fullwidth">
+                                <select id="selec-ctg">
+                                    <option>Comidas</option>
+                                    <option>Servicios</option>
+                                    <option>Salidas</option>
+                                    <option>Educación</option>
+                                    <option>Transporte</option>
+                                    <option>Trabajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="m-4">
+                            <label class="label" for="ip-date-new">Fecha</label>
+                            <input class="input" id="ip-date-new" type="date" />
+                        </div>
+                        <div class="m-6 is-flex is-justify-content-flex-end">
+                            <button class="button is-light" id="close">Cancelar</button>
+                            <button class="button is-link ml-2">Agregar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -215,31 +223,32 @@
                         <div class="is-flex">
 
                             <input class="input" id="ipt-text-name" type="text" />
-
                             <button class="button is-info ml-2" type="submit">Agregar</button>
                         </div>
-                        <div class="mt-4 py-3" id="container-ctg"></div>
+                        
                     </form>
+                    <div class="mt-4 py-3" id="container-ctg"></div>
                 </div>
             </div>
         </section>
+        <!-- editar categoria -->
         <section class="section is-hidden" id="category-edit">
-        <div class="container is-flex is-justify-content-center pt-6">
-            <div class="column is-8 box">
-                <h2 class="title is-2 has-text-weight-bold m-4 pb-5"> Editar Categorías</h2>
-              <form class="m-4" id="a">
-                <label class="label" for="ipt-text-edit">Nombre</label>
-                <input class="input" id="b" type="text" />
-                <button class="button is-info ml-2" id="btn-edit-new" type="submit">Editar</button>
-              </form>
-              <div class="mt-6 p-4 is-flex is-justify-content-flex-end">
-                <button class="button">Cancelar</button>
-                
-              </div>
-            </div>
-          </div>
-        </section>
+            <div class="container is-flex is-justify-content-center pt-6">
+                <div class="column is-8 box">
+                    <h2 class="title is-2 has-text-weight-bold m-4 pb-5"> Editar Categorías</h2>
+                    <form class="m-4" id="a">
+                        <label class="label" for="ipt-text-edit">Nombre</label>
+                        <input class="input" id="b" type="text" />
+                        <div class="mt-6 p-4 is-flex is-justify-content-flex-end">
+                            <button class="button">Cancelar</button>
+                            <button class="button is-info ml-2" id="btn-edit-new" type="submit">Editar</button>
+                        </div>
+                    </form>
 
+                </div>
+            </div>
+        </section>
+        <!-- vista principal reporte -->
         <section class="section is-hidden" id="reports-cont">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
@@ -258,6 +267,7 @@
                 </div>
             </div>
         </section>
+        <!-- reportes vista secundaria -->
         <section class="section is-hidden">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">

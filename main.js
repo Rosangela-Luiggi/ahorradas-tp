@@ -1,9 +1,11 @@
 const $ = (elemento) => document.querySelector(elemento);
 
-let category = [];
+
+let operation = [];
 
 window.addEventListener("load", function () {
-  category = JSON.parse(localStorage.getItem("datosCtg"))
+   let category = localStorage.getItem("datosCtg") ? JSON.parse(localStorage.getItem("datosCtg")) : [];
+  let categoryToEdit;       
   /*  VARIABLES*/
   //menu desplegable
   const $btnNavBar = $(".navbar-burger");
@@ -36,24 +38,23 @@ window.addEventListener("load", function () {
   const $inputEdit = $("#b");
   const $formEdit = $("#a");
 
+/*   //seccion de operaciones
+ const $formOperat = $("#form-operation");
+  const $inputDescrip = $("#ipt-operations");
+  const $inputMonto = $("#ipt-amount");
+  const $selectOperat = $("#selec-type");
+  const $selectCtg = $("#selec-ctg");
+  const $inputDate = $("#ip-date-new");
+
+  const $containNewOpt = $(".contain-opt");
+  const $infoOpt = $(".inf"); */ 
+
+ 
+  
+
+
 
   /* FUNCIONES */
-  /* let $hiddeViews = document.querySelectorAll(".section");
-   let ocultar =(container)=>{
-      
-      $hiddeViews.forEach((set) => {
-     set.classList.add("is-hidden");
-   container.classList.remove("is-hidden");
-   container.classList.add("is-active");
-      
-    });
-   
-    }
-    btnBalance.addEventListener("click", ocultar($containerBalance));
-    btnCategory.addEventListener("click", ocultar($containerCategory ));
-    btnReports.addEventListener("click", ocultar($containerReports)); */
-
-
   //activar el menu burgur
   const activeNacBar = () => {
     $navEnd.classList.toggle("is-active");
@@ -69,19 +70,17 @@ window.addEventListener("load", function () {
     localStorage.setItem("datosCtg", JSON.stringify(category));
     return paintCategory();
   };
-  console.log("chao")
   let editCategory = () => {
-   
     category = category.map((item) => {
-      if (item.id === category.id) {
-        item.titulo = $inputEdit.value;
+      if (item.id === categoryToEdit.id) {   // COMPARAMOS SI LA CATEGORIA GUARDADA TIENE EL MISMO ID QUE LA QUE ITERAMOS
+        item.titulo = $inputEdit.value;     // SI SON IGUALES LE CAMBIAMOS EL VALOR
       }
-      console.log($inputEdit.value)
-      return $inputEdit.value;
-      
+      return item;     // PARA FINALIZAR EL MAP SIEMPRE RETORNA UN NUEVO ARRAY ENTONCES DEBEMOS DEVOLVER EL OBJETO Y NO SOLO EL TITULO
     });
     localStorage.setItem("datosCtg", JSON.stringify(category));
+    paintCategory();            // DESPUES DE EDITAR CORRECTAMENTE VUELVO A PINTAR LAS CATEGORIAS
   };
+
 
 
 
@@ -95,6 +94,7 @@ window.addEventListener("load", function () {
     $containerCategory.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
+   /*  $containNewOpt.classList.add("is-hidden"); */
   });
 
   btnCategory.addEventListener("click", () => {
@@ -102,6 +102,7 @@ window.addEventListener("load", function () {
     $containerBalance.classList.add("is-hidden");
     $containerReports.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
+    /* $containNewOpt.classList.toggle("is-hidden"); */
   });
 
   btnReports.addEventListener("click", () => {
@@ -109,6 +110,7 @@ window.addEventListener("load", function () {
     $containerCategory.classList.add("is-hidden");
     $containerBalance.classList.add("is-hidden");
     $conEditCtg.classList.add("is-hidden");
+   /*  $containNewOpt.classList.add("is-hidden"); */
 
   });
   //ocultar filtro
@@ -128,18 +130,78 @@ window.addEventListener("load", function () {
     $containerBalance.classList.remove("is-hidden");
   });
 
-  /* ---------------------- Aqui inicie categoria------------- */
-  //crear nueva categoria
+  /* -------------------inicio de operaciones------------------- */
+/* 
+  let agregarOperacion = () => {
+    operation.push({
+      id: crypto.randomUUID(),
+      description: $inputDescrip.value,
+      category: $selectCtg.value,
+      date: $inputDate.value,
+      type: $selectOperat.value,
+      amount: $inputMonto.value,
+      
+    });
+    localStorage.setItem("datosOp", JSON.stringify(operation));
+    return paintOperation();
+  };
+
+  $formOperat.addEventListener("submit", (e) => {
+    e.preventDefault();
+    agregarOperacion();
+  });
+
+  const paintOperation = () => {
+    $containNewOpt.innerHTML = "";
+    operation.forEach((option) => {
+     $containNewOpt.innerHTML +=
+      `<div class=" container m-4">
+    <div class="columns is-mobile mb-6 has-text-weight-semibold">
+        <div class="column">Descrición</div>
+        <div class="column">Categoría</div>
+        <div class="column">Fecha</div>
+        <div class="column">Monto</div>
+        <div class="column">Acciones</div>
+    </div>
+    <div class="columns is-mobile mb-6 ">
+        <div class="column tag is-info is-light">${option.description}</div>
+        <div class="column">${option.category}</div>
+        <div class="column">${option.date}</div>
+        <div class="column">${option.Tipo == "Ingreso" ? "+" : "-"}${option.amount}</div>
+        <div class="column">
+        <button class="button tag is-link is-inverted btn-editOp" id=${option.id}>Editar</button>
+        <button class="button tag is-link is-inverted btn-deleteOp" id=${option.id}>Eliminar</button>
+        </div>
+    </div>
+
+    </div>`;
+    });
+    let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
+    $btnDeleteOp.forEach((btnOp) => {
+      btnOp.addEventListener("click", (e) => {
+        let idAEliminarOp = e.target.id;
+        category = category.filter((items) => items.id !== idAEliminarOp);
+        localStorage.setItem("datosCtg", JSON.stringify(category));
+        paintOperation();
+      });
+    });
+  };
+  paintOperation(); */
+
+
+
+  /* ----------------------inicio categoria-------------------- */
+
+  
+   //crear nueva categoria
   $formNewcategory.addEventListener("submit", (e) => {
     e.preventDefault();
     agregarCategoria();
   });
 
   $formEdit.addEventListener("submit", (e) => {
-    console.log("hola")
     e.preventDefault();
     editCategory();
-
   });
 
   const paintCategory = () => {
@@ -148,11 +210,11 @@ window.addEventListener("load", function () {
       $ctgNewcategory.innerHTML += `<div class="m-4">
     <div class="columns is-mobile px-4">
       <div class="column is-9"><span class=" column tag is-primary is-light">${elem.titulo}</span></div>
-      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" id=${elem.id}>Editar</button></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id}>Editar</button></div>            
       <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
     </div>
     </div>`;
-    });
+    });                    
     let $btnDelete = document.querySelectorAll(".btn-delete");
     $btnDelete.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -168,8 +230,8 @@ window.addEventListener("load", function () {
       btn.addEventListener("click", (e) => {
         $containerCategory.classList.add("is-hidden");
         $conEditCtg.classList.remove("is-hidden");
-        const categoryEdit = category.find(option => option.id === e.target.id);
-        $inputEdit.value = categoryEdit.titulo;
+        categoryToEdit = category.find(option => option.id === e.target.id);       
+        $inputEdit.value = categoryToEdit.titulo;    
       });
     });
   };
