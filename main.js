@@ -30,13 +30,14 @@ window.addEventListener("load", function () {
   const $newOperacion = $("#operation-cont");
   const $btnCancelOp = $("#close");
 
-  //seccion de crear categoria
+  //seccion de crear/ editar / eliminar categoria
   const $inputcategory = $("#ipt-text-name");
   const $ctgNewcategory = $("#container-ctg");
   const $formNewcategory = $("#form-category");
   const $conEditCtg = $("#category-edit");
   const $inputEdit = $("#b");
   const $formEdit = $("#a");
+  const $btnCEdit = $("#cancel-edit")
 
 /*   //seccion de operaciones
  const $formOperat = $("#form-operation");
@@ -72,13 +73,13 @@ window.addEventListener("load", function () {
   };
   let editCategory = () => {
     category = category.map((item) => {
-      if (item.id === categoryToEdit.id) {   // COMPARAMOS SI LA CATEGORIA GUARDADA TIENE EL MISMO ID QUE LA QUE ITERAMOS
-        item.titulo = $inputEdit.value;     // SI SON IGUALES LE CAMBIAMOS EL VALOR
+      if (item.id === categoryToEdit.id) {   
+        item.titulo = $inputEdit.value;     
       }
-      return item;     // PARA FINALIZAR EL MAP SIEMPRE RETORNA UN NUEVO ARRAY ENTONCES DEBEMOS DEVOLVER EL OBJETO Y NO SOLO EL TITULO
+      return item;    
     });
     localStorage.setItem("datosCtg", JSON.stringify(category));
-    paintCategory();            // DESPUES DE EDITAR CORRECTAMENTE VUELVO A PINTAR LAS CATEGORIAS
+    paintCategory();            
   };
 
 
@@ -202,6 +203,8 @@ window.addEventListener("load", function () {
   $formEdit.addEventListener("submit", (e) => {
     e.preventDefault();
     editCategory();
+    $conEditCtg.classList.add("is-hidden");
+    $containerCategory.classList.remove("is-hidden");
   });
 
   const paintCategory = () => {
@@ -238,6 +241,10 @@ window.addEventListener("load", function () {
 
   paintCategory();
 
+  $btnCEdit.addEventListener("click",()=>{
+    $conEditCtg.classList.add("is-hidden");
+    $containerCategory.classList.remove("is-hidden");
+  });
 
 
 
