@@ -66,6 +66,12 @@ window.addEventListener("load", function () {
   const $gastosTotal = $("#total-spends");
   const $totalBalance = $("#total");
 
+  //box filtros
+  const $filterCategory = $("#selec-filter-Ctg");
+  const $filterType = $("#selec-filter-tpg");
+  const $filterDay = $("#ip-date-filter");
+  const $filterOrder = $("#selec-filter-ord");
+
 
   /* FUNCIONES */
   //activar el menu burgur
@@ -74,21 +80,22 @@ window.addEventListener("load", function () {
     $btnNavBar.classList.toggle("is-active");
   }
   /* --------funciones para la seccion balance/operaciones------- */
+  //box balance
   let balance= ()=>{
     const ganancias = operation.filter(opcion => opcion.type === "Ganancia").map((valor) => Number(valor.amount));
-    console.log(ganancias)
+   
     const gananciaResul = ganancias.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  console.log(gananciaResul)
+  
   
     const gastos = operation.filter(opcion => opcion.type === "Gastos").map((valor) => Number(valor.amount));
-    console.log(gastos)
+    
     const gastosResul = gastos.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    console.log(gastosResul)
+    
     let resultado = gananciaResul + gastosResul;
-  
     $gananciaTotal.innerText =`+${gananciaResul}`
     $gastosTotal.innerText =`-${gastosResul}`
     $totalBalance.innerText =`${resultado}`
+    
     }
   let agregarOperacion = () => {
     operation.push({
@@ -121,6 +128,16 @@ window.addEventListener("load", function () {
     
     paintOperation();
   };
+//filter
+
+const mostrarCategoria = (container) => {
+  category.forEach(function(dato) {
+    container.innerHTML += `
+    <option value="${dato.titulo.toLowerCase()}">${dato.titulo}</option>
+    `;
+  });
+ 
+};
 
 
   /* --------funciones para la seccion categoria------- */
@@ -132,8 +149,12 @@ window.addEventListener("load", function () {
       titulo: $inputcategory.value
     });
     localStorage.setItem("datosCtg", JSON.stringify(category));
-    return paintCategory();
+    paintCategory();
+    mostrarCategoria($filterCategory);
+    mostrarCategoria($selectCtg);
+    mostrarCategoria($selectEditCtg);
   };
+
   let editCategory = () => {
     category = category.map((item) => {
       if (item.id === categoryToEdit.id) {
@@ -266,7 +287,7 @@ window.addEventListener("load", function () {
     
   });
  
-//box balance
+
  
   /* ----------------------inicio categoria-------------------- */
   //crear nueva categoria
