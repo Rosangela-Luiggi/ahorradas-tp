@@ -46,7 +46,7 @@ window.addEventListener("load", function () {
   const $selectOperat = $("#selec-type");
   const $selectCtg = $("#selec-ctg");
   const $inputDate = $("#ip-date-new");
-
+const $color = $("monto-cl");
   const $containNewOpt = $(".contain-opt");
   const $infoOpt = $(".inf");
   const contTitulos =$(".titulos")
@@ -69,7 +69,7 @@ window.addEventListener("load", function () {
   //box filtros
  /*  let operationCopy = [...operation]; */
   const $filterCategory = $("#selec-filter-Ctg");
-  const $filterType = $("#selec-filter-tpg");
+  const $filterType = $("#selec-filter-tp");
   const $filterDay = $("#ip-date-filter");
   const $filterOrder = $("#selec-filter-ord");
 
@@ -94,9 +94,9 @@ window.addEventListener("load", function () {
     $filterDay.value = fechaActualParaInput
   /* --------funciones para la seccion balance/operaciones------- */
   //pintar las operaciones
-  const paintOperation = () => {
+  const paintOperation = (arr) => {
     $containNewOpt.innerHTML = "";
-    operation.forEach((option) => {
+    arr.forEach((option) => {
       $containNewOpt.innerHTML +=
         `<div class=" container m-4">
   <div class="columns is-mobile mb-6 ">
@@ -113,7 +113,7 @@ window.addEventListener("load", function () {
     </div>`;
     });
 
-    if(operation.length<1){
+    if(arr.length<1){
       $infoOpt.classList.remove("is-hidden");
       contTitulos.classList.add("is-hidden");
     }else{
@@ -125,7 +125,7 @@ window.addEventListener("load", function () {
       btnOp.addEventListener("click", (e) => {
         operation = operation.filter((item) => item.id !== e.target.id);
         localStorage.setItem("datos", JSON.stringify(operation));
-        paintOperation();
+        paintOperation(operation);
       });
     });
 
@@ -145,7 +145,7 @@ window.addEventListener("load", function () {
     });
 
   };
-  paintOperation();
+  paintOperation(operation);
   //box balance
   let balance= ()=>{
     const ganancias = operation.filter(opcion => opcion.type === "Ganancia").map((valor) => Number(valor.amount));
@@ -175,7 +175,7 @@ window.addEventListener("load", function () {
     });
     localStorage.setItem("datos", JSON.stringify(operation));
     balance()
-    paintOperation();
+    paintOperation(operation);
     
   };
 
@@ -197,6 +197,7 @@ window.addEventListener("load", function () {
 //levar las categorias a lo select de categorias
 
 const mostrarCategoria = (container) => {
+  $containNewOpt.innerHTML = "";
   category.forEach(function(dato) {
     container.innerHTML += `
     <option value="${dato.titulo.toLowerCase()}">${dato.titulo}</option>
@@ -206,57 +207,75 @@ const mostrarCategoria = (container) => {
 };
 // filtros
 
-/* let filterByType= ()=>{
-    if ($filterType.value !== "todos") {
-      operation = operation.filter((opt) => opt.type === $filterType.value);
-      return operation
-    }
- paintOperation();  
-}; */
+$filterType.addEventListener("change", () => {
+  filterByType()
+});
+let filterByType= ()=>{
+  
+  if ($filterType.value !== "todos") {
+    let copy = operation.filter((opt) => opt.type === $filterType.value);
+    paintOperation(copy);  
+  } else {
+    paintOperation(operation)
+  }
+};
 
-/*  
+$filterCategory.addEventListener("change", () => {
+  filterByCategory()
+});
 let filterByCategory= ()=>{
   if ($filterCategory.value !== "todos") {
-    operation = operation.filter((opt) => opt.category === $filterCategory.value);
+    let copy  = operation.filter((opt) => opt.category === $filterCategory.value);
+    paintOperation(copy);
   }
-paintOperation();
+paintOperation(operation);
 };
-filterByCategory()
 
+$filterDay.addEventListener("change", () => {
+  filterByDate()
+});
 let filterByDate = ()=>{
-    operation = operation.filter((opt) => opt.date >= $filterDay.value);
-paintOperation();
+  let copy= operation.filter((opt) => opt.date >= $filterDay.value);
+paintOperation(copy);
 };
 
 
-
+$filterOrder.addEventListener("change", () => {
+  order();
+});
 let order = () => {
   if($filterOrder.value === $filterDay.value){
-    operation = operation.sort((x, y) => x.date.localeCompare(y.date));
-    console.log(operation)
+    let copy= operation.sort((x, y) => x.date.localeCompare(y.date));
+    paintOperation(copy);
   }
-  if($filterOrder === $filterDay.value){
-    operation = operation.sort((x, y) => y.date.localeCompare(x.date));
+  if($filterOrder === fechaActualParaInput){
+    let copy = operation.sort((x, y) => y.date.localeCompare(x.date));
+    paintOperation(copy);
   }
 
   if($filterOrder.value === "mayor"){
-    operation.sort((x, y) => x.amount.localeCompare(y.amount));
+    let copy = operation.sort((x, y) => x.amount.localeCompare(y.amount));
+    paintOperation(copy);
+    console.log(copy)
   }
   if($filterOrder === "menor"){
-    operation = operation.sort((x, y) => y.amount.localeCompare(x.amount));
+    let copy= operation.sort((x, y) => y.amount.localeCompare(x.amount));
+    paintOperation(copy);
   }
 
   if($filterOrder.value === "a/z"){
-    operation = operation.sort((x, y) => x.description.localeCompare(y.description));
+    let copy= operation.sort((x, y) => x.description.localeCompare(y.description));
+    paintOperation(copy);
   }
 
 
   if($filterOrder === "z/a"){
-    operation = operation.sort((x, y) => y.description.localeCompare(x.description));
+    let copy= operation.sort((x, y) => y.description.localeCompare(x.description));
+    paintOperation(copy);
   }
-  paintOperation();
+  paintOperation(operation);
 };
- */
+
 
   /* --------funciones para la seccion categoria------- */
   //agrega una nueva categoria
