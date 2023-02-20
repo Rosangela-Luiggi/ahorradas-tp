@@ -146,7 +146,7 @@
                             <a class="button is-info" id="new-operation">+ Nueva operación</a>
                         </div>
                         <div class="container m-6">
-                            
+                            <!-- titulos de operaciones -->
                             <div class="titulos">
                                 <div class="columns is-mobile mb-6 has-text-weight-semibold">
                                     <div class="column">Descripción</div>
@@ -156,9 +156,9 @@
                                     <div class="column">Acciones</div>
                                 </div>
                             </div>
-
+                    <!-- div donde se pintan las operaciones -->
                             <div class="contain-opt"></div>
-
+                  <!-- div con la imagen -->
                             <div class="inf is-hidden">
                                 <div class="image m-6">
                                     <img src="imagenes/undraw_discount_d-4-bd.svg"
@@ -221,7 +221,7 @@
                             <input class="input" id="ip-date-new" type="date" />
                         </div>
                         <div class="m-6 is-flex is-justify-content-flex-end">
-                            <button class="button is-light" id="close">Cancelar</button>
+                            <button class="button is-light" id="close" type="button">Cancelar</button>
                             <button class="button is-link ml-2">Agregar</button>
                         </div>
                     </form>
@@ -229,7 +229,7 @@
             </div>
         </section>
 
-        <!-- seccion para editar informacion -->
+        <!-- seccion para editar operacion -->
         <section class="section  is-hidden" id="operation-Edit">
             <div class="container is-flex is-justify-content-center pt-6">
                 <div class="column is-8 box m-4">
@@ -272,7 +272,7 @@
                             <input class="input" id="ip-date-ed" type="date" />
                         </div>
                         <div class="m-6 is-flex is-justify-content-flex-end">
-                            <button class="button is-light" id="close-ed">Cancelar</button>
+                            <button class="button is-light" id="close-ed" type="button">Cancelar</button>
                             <button class="button is-link ml-2">Agregar</button>
                         </div>
                     </form>
@@ -306,7 +306,7 @@
                         <label class="label" for="ipt-text-edit">Nombre</label>
                         <input class="input" id="b" type="text" />
                         <div class="mt-6 p-4 is-flex is-justify-content-flex-end">
-                            <button class="button" id="cancel-edit">Cancelar</button>
+                            <button class="button" id="cancel-edit" type="button">Cancelar</button>
                             <button class="button is-info ml-2" id="btn-edit" type="submit">Editar</button>
                         </div>
                     </form>

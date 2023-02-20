@@ -2,7 +2,7 @@ const $ = (elemento) => document.querySelector(elemento);
 
 
 window.addEventListener("load", function () {
-  let category = localStorage.getItem("datos") ? JSON.parse(localStorage.getItem("datos")) : [];
+  let category = localStorage.getItem("datosCtg") ? JSON.parse(localStorage.getItem("datosCtg")) : [];
   let operation = localStorage.getItem("datos") ? JSON.parse(localStorage.getItem("datos")) : [];
   let categoryToEdit;
   let operationToEdit;
@@ -67,13 +67,6 @@ window.addEventListener("load", function () {
   const $totalBalance = $("#total");
 
 
-
-
-
-
-
-
-
   /* FUNCIONES */
   //activar el menu burgur
   const activeNacBar = () => {
@@ -133,14 +126,12 @@ window.addEventListener("load", function () {
   /* --------funciones para la seccion categoria------- */
   //agrega una nueva categoria
 
- 
-   
   let agregarCategoria = () => {
     category.push({
       id: crypto.randomUUID(),
       titulo: $inputcategory.value
     });
-    localStorage.setItem("datos", JSON.stringify(category));
+    localStorage.setItem("datosCtg", JSON.stringify(category));
     return paintCategory();
   };
   let editCategory = () => {
@@ -150,7 +141,7 @@ window.addEventListener("load", function () {
       }
       return item;
     });
-    localStorage.setItem("datos", JSON.stringify(category));
+    localStorage.setItem("datosCtg", JSON.stringify(category));
     paintCategory();
   };
 
@@ -202,6 +193,9 @@ window.addEventListener("load", function () {
   $formOperat.addEventListener("submit", (e) => {
     e.preventDefault();
     agregarOperacion();
+    $newOperacion.classList.add("is-hidden");
+    $containerBalance.classList.remove("is-hidden");
+
   });
   $formOpEdit.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -222,7 +216,7 @@ window.addEventListener("load", function () {
       <div class="column tag is-info is-light is-size-7 has-text-link-dark">${option.description}</div>
       <div class="column">${option.category}</div>
       <div class="column">${option.date}</div>
-      <div class="column">${option.type === "Ingreso" ? "+" : "-"}${option.amount}</div>
+      <div class="column">${option.type === "Ganancia" ? "+" : "-"}${option.amount}</div>
       <div class="column">
       <button class="button tag is-link is-inverted btn-editOp" type="button" id=${option.id}>Editar</button>
       <button class="button tag is-link is-inverted btn-deleteOp" id=${option.id}>Eliminar</button>
@@ -231,6 +225,14 @@ window.addEventListener("load", function () {
 
     </div>`;
     });
+
+    if(operation.length<1){
+      $infoOpt.classList.remove("is-hidden");
+      contTitulos.classList.add("is-hidden");
+    }else{
+      $infoOpt.classList.add("is-hidden");
+      contTitulos.classList.remove("is-hidden");
+    } 
     let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
     $btnDeleteOp.forEach((btnOp) => {
       btnOp.addEventListener("click", (e) => {
@@ -239,13 +241,14 @@ window.addEventListener("load", function () {
         paintOperation();
       });
     });
+
     let $btnEditOp = document.querySelectorAll(".btn-editOp");
     $btnEditOp.forEach((btnOp) => {
       btnOp.addEventListener("click", (e) => {
         $containerBalance.classList.add("is-hidden");
         $newOperacion.classList.add("is-hidden");
         sectionEdit.classList.remove("is-hidden");
-        operationToEdit = category.find(opt => opt.id === e.target.id);
+        operationToEdit = operation.find(opt => opt.id === e.target.id);
         $inputEditOp.value = operationToEdit.description;
         $selectEditCtg.value = operationToEdit.category;
         $inpEditDate.value = operationToEdit.date;
@@ -253,30 +256,18 @@ window.addEventListener("load", function () {
         $inptMontoedt.value = operationToEdit.amount;
       });
     });
-   /*  if(operation = []){
-      $infoOpt.classList.remove("is-hidden");
-      contTitulos.classList.add("is-hidden");
-    }
-   if(operation != []){
-      $infoOpt.classList.add("is-hidden");
-      contTitulos.classList.remove("is-hidden");
-    }  */
 
   };
+  paintOperation();
 
   $btnCancelEdit.addEventListener("click", () => {
-    $containerBalance.classList.dddr("is-hidden");
     sectionEdit.classList.add("is-hidden");
+    $containerBalance.classList.remove("is-hidden");
+    
   });
-  paintOperation();
+ 
 //box balance
  
-
- 
-
-  
-
-
   /* ----------------------inicio categoria-------------------- */
   //crear nueva categoria
   $formNewcategory.addEventListener("submit", (e) => {
@@ -298,7 +289,7 @@ window.addEventListener("load", function () {
       $ctgNewcategory.innerHTML += `<div class="m-4">
     <div class="columns is-mobile px-4">
       <div class="column is-9"><span class=" column tag is-info is-light is-size-6 has-text-link-dark">${elem.titulo}</span></div>
-      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id}>Editar</button></div>            
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id} type="button">Editar</button></div>            
       <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
     </div>
     </div>`;
@@ -308,7 +299,7 @@ window.addEventListener("load", function () {
       btn.addEventListener("click", (e) => {
         let idAEliminar = e.target.id;
         category = category.filter((items) => items.id !== idAEliminar);
-        localStorage.setItem("datos", JSON.stringify(category));
+        localStorage.setItem("datosCtg", JSON.stringify(category));
         paintCategory();
       });
     });
@@ -323,12 +314,13 @@ window.addEventListener("load", function () {
       });
     });
   };
+  paintCategory();
   $btnCEdit.addEventListener("click", () => {
     $conEditCtg.classList.add("is-hidden");
     $containerCategory.classList.remove("is-hidden");
   });
 
-  paintCategory();
+  
 
 
 
