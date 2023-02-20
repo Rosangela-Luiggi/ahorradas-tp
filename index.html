@@ -93,7 +93,7 @@
                                     <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
                                     <div class="select is-fullwidth">
                                         <select id="selec-filter-tp">
-                                            <option>Todos</option>
+                                            <option value="todos">Todos</option>
                                             <option>Gastos</option>
                                             <option>Ganancia</option>
                                         </select>
@@ -126,12 +126,12 @@
                                     <h4 class="title is-6 has-text-weight-bold mb-2"></h4>
                                     <div class="select is-fullwidth">
                                         <select id="selec-filter-ord">
-                                            <option>Más reciente</option>
-                                            <option>Menos reciente</option>
-                                            <option>Mayor monto</option>
-                                            <option>Menor monto</option>
-                                            <option>A/Z</option>
-                                            <option>Z/A</option>
+                                            <option value="mas">Más reciente</option>
+                                            <option value="menos">Menos reciente</option>
+                                            <option value="mayor">Mayor monto</option>
+                                            <option value="menor">Menor monto</option>
+                                            <option value="a/z">Z/A</option>
+                                            <option value="z/a">Z/A</option>
                                         </select>
                                     </div>
                                 </div>
@@ -192,7 +192,8 @@
                         </div>
                         <div class="m-4">
                             <label class="label" for="ipt-amount">Monto</label>
-                            <input class="input" id="ipt-amount" type="number" value="0" />
+                            <input class="input" id="ipt-amount" type="number" value="0"  min="0"
+                            step="1" />
                         </div>
                         <div class="m-4">
                             <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>
@@ -243,7 +244,8 @@
                         </div>
                         <div class="m-4">
                             <label class="label" for="ipt-amount-ed">Monto</label>
-                            <input class="input" id="ipt-amount-ed" type="number" value="8" />
+                            <input class="input" id="ipt-amount-ed" type="number" value="0"  min="0"
+                            step="1" />
                         </div>
                         <div class="m-4">
                             <h4 class="title is-6 has-text-weight-bold mb-2">Tipo</h4>

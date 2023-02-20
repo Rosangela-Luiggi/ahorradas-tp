@@ -67,6 +67,7 @@ window.addEventListener("load", function () {
   const $totalBalance = $("#total");
 
   //box filtros
+ /*  let operationCopy = [...operation]; */
   const $filterCategory = $("#selec-filter-Ctg");
   const $filterType = $("#selec-filter-tpg");
   const $filterDay = $("#ip-date-filter");
@@ -79,7 +80,72 @@ window.addEventListener("load", function () {
     $navEnd.classList.toggle("is-active");
     $btnNavBar.classList.toggle("is-active");
   }
+
+  const fecha = new Date();
+    let mes = fecha.getMonth() 
+    let dia = fecha.getDate(); 
+    const anio = fecha.getFullYear(); 
+    if(dia<10)
+      dia='0'+dia; 
+    if(mes<10)
+      mes='0'+(mes +1)  
+    const fechaActualParaInput = `${anio}-${mes}-${dia}`
+    $inputDate.value = fechaActualParaInput
+    $filterDay.value = fechaActualParaInput
   /* --------funciones para la seccion balance/operaciones------- */
+  //pintar las operaciones
+  const paintOperation = () => {
+    $containNewOpt.innerHTML = "";
+    operation.forEach((option) => {
+      $containNewOpt.innerHTML +=
+        `<div class=" container m-4">
+  <div class="columns is-mobile mb-6 ">
+      <div class="column tag is-info is-light is-size-7 has-text-link-dark">${option.description}</div>
+      <div class="column">${option.category}</div>
+      <div class="column">${option.date.slice(8,10)}/${option.date.slice(5,7)}/${option.date.slice(0,4)}</div>
+      <div class="column">${option.type === "Ganancia" ? "+" : "-"}${option.amount}</div>
+      <div class="column">
+      <button class="button tag is-link is-inverted btn-editOp" type="button" id=${option.id}>Editar</button>
+      <button class="button tag is-link is-inverted btn-deleteOp" id=${option.id}>Eliminar</button>
+      </div>
+  </div>
+
+    </div>`;
+    });
+
+    if(operation.length<1){
+      $infoOpt.classList.remove("is-hidden");
+      contTitulos.classList.add("is-hidden");
+    }else{
+      $infoOpt.classList.add("is-hidden");
+      contTitulos.classList.remove("is-hidden");
+    } 
+    let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
+    $btnDeleteOp.forEach((btnOp) => {
+      btnOp.addEventListener("click", (e) => {
+        operation = operation.filter((item) => item.id !== e.target.id);
+        localStorage.setItem("datos", JSON.stringify(operation));
+        paintOperation();
+      });
+    });
+
+    let $btnEditOp = document.querySelectorAll(".btn-editOp");
+    $btnEditOp.forEach((btnOp) => {
+      btnOp.addEventListener("click", (e) => {
+        $containerBalance.classList.add("is-hidden");
+        $newOperacion.classList.add("is-hidden");
+        sectionEdit.classList.remove("is-hidden");
+        operationToEdit = operation.find(opt => opt.id === e.target.id);
+        $inputEditOp.value = operationToEdit.description;
+        $selectEditCtg.value = operationToEdit.category;
+        $inpEditDate.value = operationToEdit.date;
+        $selectEditType.value = operationToEdit.type;
+        $inptMontoedt.value = operationToEdit.amount;
+      });
+    });
+
+  };
+  paintOperation();
   //box balance
   let balance= ()=>{
     const ganancias = operation.filter(opcion => opcion.type === "Ganancia").map((valor) => Number(valor.amount));
@@ -128,7 +194,7 @@ window.addEventListener("load", function () {
     
     paintOperation();
   };
-//filter
+//levar las categorias a lo select de categorias
 
 const mostrarCategoria = (container) => {
   category.forEach(function(dato) {
@@ -138,6 +204,40 @@ const mostrarCategoria = (container) => {
   });
  
 };
+// filtros
+
+let filterByType= ()=>{
+    if ($filterType.value !== "todos") {
+      operation = operation.filter((opt) => opt.type === $filterType.value);
+    }
+  return operation;
+} 
+let filterByCategory= ()=>{
+  if ($filterCategory.value !== "todos") {
+    operation = operation.filter((opt) => opt.categoryz === $filterCategory.value);
+  }
+return operation;
+}
+
+
+let order = () => {
+  if($filterOrder.value = "mayor"){
+    operation = operation.sort((x, y) => x.amount.localeCompare(y.amount));
+  }
+  if($filterOrder= "menor"){
+    operation = operation.sort((x, y) => y.amount.localeCompare(x.amount));
+  }
+
+  if($filterOrder.value = "a/z"){
+    operation = operation.sort((x, y) => x.description.toLowerCase().localeCompare(y.toLowerCase().description));
+  }
+  if($filterOrder= "z/a"){
+    operation = operation.sort((x, y) => y.description.localeCompare(x.description));
+  }
+  return operation;
+};
+
+
 
 
   /* --------funciones para la seccion categoria------- */
@@ -228,58 +328,7 @@ const mostrarCategoria = (container) => {
     $newOperacion.classList.add("is-hidden");
     $containerBalance.classList.remove("is-hidden");
   });
-  const paintOperation = () => {
-    $containNewOpt.innerHTML = "";
-    operation.forEach((option) => {
-      $containNewOpt.innerHTML +=
-        `<div class=" container m-4">
-  <div class="columns is-mobile mb-6 ">
-      <div class="column tag is-info is-light is-size-7 has-text-link-dark">${option.description}</div>
-      <div class="column">${option.category}</div>
-      <div class="column">${option.date}</div>
-      <div class="column">${option.type === "Ganancia" ? "+" : "-"}${option.amount}</div>
-      <div class="column">
-      <button class="button tag is-link is-inverted btn-editOp" type="button" id=${option.id}>Editar</button>
-      <button class="button tag is-link is-inverted btn-deleteOp" id=${option.id}>Eliminar</button>
-      </div>
-  </div>
-
-    </div>`;
-    });
-
-    if(operation.length<1){
-      $infoOpt.classList.remove("is-hidden");
-      contTitulos.classList.add("is-hidden");
-    }else{
-      $infoOpt.classList.add("is-hidden");
-      contTitulos.classList.remove("is-hidden");
-    } 
-    let $btnDeleteOp = document.querySelectorAll(".btn-deleteOp");
-    $btnDeleteOp.forEach((btnOp) => {
-      btnOp.addEventListener("click", (e) => {
-        operation = operation.filter((item) => item.id !== e.target.id);
-        localStorage.setItem("datos", JSON.stringify(operation));
-        paintOperation();
-      });
-    });
-
-    let $btnEditOp = document.querySelectorAll(".btn-editOp");
-    $btnEditOp.forEach((btnOp) => {
-      btnOp.addEventListener("click", (e) => {
-        $containerBalance.classList.add("is-hidden");
-        $newOperacion.classList.add("is-hidden");
-        sectionEdit.classList.remove("is-hidden");
-        operationToEdit = operation.find(opt => opt.id === e.target.id);
-        $inputEditOp.value = operationToEdit.description;
-        $selectEditCtg.value = operationToEdit.category;
-        $inpEditDate.value = operationToEdit.date;
-        $selectEditType.value = operationToEdit.type;
-        $inptMontoedt.value = operationToEdit.amount;
-      });
-    });
-
-  };
-  paintOperation();
+ 
 
   $btnCancelEdit.addEventListener("click", () => {
     sectionEdit.classList.add("is-hidden");
