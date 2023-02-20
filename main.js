@@ -214,13 +214,25 @@ let filterByType= ()=>{
 } 
 let filterByCategory= ()=>{
   if ($filterCategory.value !== "todos") {
-    operation = operation.filter((opt) => opt.categoryz === $filterCategory.value);
+    operation = operation.filter((opt) => opt.category === $filterCategory.value);
   }
+return operation;
+}
+
+let filterByDate= ()=>{
+    operation = operation.filter((opt) => opt.date >= $filterCategory.value);
 return operation;
 }
 
 
 let order = () => {
+  if($filterOrder.value = fechaActualParaInput){
+    operation = operation.sort((x, y) => x.date.localeCompare(y.date));
+  }
+  if($filterOrder= fechaActualParaInput){
+    operation = operation.sort((x, y) => y.date.localeCompare(x.date));
+  }
+
   if($filterOrder.value = "mayor"){
     operation = operation.sort((x, y) => x.amount.localeCompare(y.amount));
   }
@@ -237,11 +249,44 @@ let order = () => {
   return operation;
 };
 
-
-
-
   /* --------funciones para la seccion categoria------- */
   //agrega una nueva categoria
+  const paintCategory = () => {
+    $ctgNewcategory.innerHTML = "";
+    category.forEach((elem) => {
+      $ctgNewcategory.innerHTML += `<div class="m-4">
+    <div class="columns is-mobile px-4">
+      <div class="column is-9"><span class=" column tag is-info is-light is-size-6 has-text-link-dark">${elem.titulo}</span></div>
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id} type="button">Editar</button></div>            
+      <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
+    </div>
+    </div>`;
+    });
+    let $btnDelete = document.querySelectorAll(".btn-delete");
+    $btnDelete.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        let idAEliminar = e.target.id;
+        category = category.filter((items) => items.id !== idAEliminar);
+        localStorage.setItem("datosCtg", JSON.stringify(category));
+        paintCategory();
+      });
+    });
+
+    let $btnEdit = document.querySelectorAll(".btn-edit");
+    $btnEdit.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        $containerCategory.classList.add("is-hidden");
+        $conEditCtg.classList.remove("is-hidden");
+        categoryToEdit = category.find(option => option.id === e.target.id);
+        $inputEdit.value = categoryToEdit.titulo;
+      });
+    });
+  };
+  paintCategory();
+  $btnCEdit.addEventListener("click", () => {
+    $conEditCtg.classList.add("is-hidden");
+    $containerCategory.classList.remove("is-hidden");
+  });
 
   let agregarCategoria = () => {
     category.push({
@@ -336,8 +381,6 @@ let order = () => {
     
   });
  
-
- 
   /* ----------------------inicio categoria-------------------- */
   //crear nueva categoria
   $formNewcategory.addEventListener("submit", (e) => {
@@ -353,42 +396,7 @@ let order = () => {
     $inputcategory.value = "";
   });
 
-  const paintCategory = () => {
-    $ctgNewcategory.innerHTML = "";
-    category.forEach((elem) => {
-      $ctgNewcategory.innerHTML += `<div class="m-4">
-    <div class="columns is-mobile px-4">
-      <div class="column is-9"><span class=" column tag is-info is-light is-size-6 has-text-link-dark">${elem.titulo}</span></div>
-      <div class="column is-1"><button class="button tag is-link is-inverted btn-edit" type="button" id=${elem.id} type="button">Editar</button></div>            
-      <div class="column is-1"><button class="button tag is-link is-inverted btn-delete" id=${elem.id}>Eliminar</button></div>
-    </div>
-    </div>`;
-    });
-    let $btnDelete = document.querySelectorAll(".btn-delete");
-    $btnDelete.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        let idAEliminar = e.target.id;
-        category = category.filter((items) => items.id !== idAEliminar);
-        localStorage.setItem("datosCtg", JSON.stringify(category));
-        paintCategory();
-      });
-    });
-
-    let $btnEdit = document.querySelectorAll(".btn-edit");
-    $btnEdit.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        $containerCategory.classList.add("is-hidden");
-        $conEditCtg.classList.remove("is-hidden");
-        categoryToEdit = category.find(option => option.id === e.target.id);
-        $inputEdit.value = categoryToEdit.titulo;
-      });
-    });
-  };
-  paintCategory();
-  $btnCEdit.addEventListener("click", () => {
-    $conEditCtg.classList.add("is-hidden");
-    $containerCategory.classList.remove("is-hidden");
-  });
+  
 
   
 
