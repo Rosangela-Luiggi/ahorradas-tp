@@ -206,48 +206,57 @@ const mostrarCategoria = (container) => {
 };
 // filtros
 
-let filterByType= ()=>{
+/* let filterByType= ()=>{
     if ($filterType.value !== "todos") {
       operation = operation.filter((opt) => opt.type === $filterType.value);
+      return operation
     }
-  return operation;
-} 
+ paintOperation();  
+}; */
+
+/*  
 let filterByCategory= ()=>{
   if ($filterCategory.value !== "todos") {
     operation = operation.filter((opt) => opt.category === $filterCategory.value);
   }
-return operation;
-}
+paintOperation();
+};
+filterByCategory()
 
-let filterByDate= ()=>{
-    operation = operation.filter((opt) => opt.date >= $filterCategory.value);
-return operation;
-}
+let filterByDate = ()=>{
+    operation = operation.filter((opt) => opt.date >= $filterDay.value);
+paintOperation();
+};
+
 
 
 let order = () => {
-  if($filterOrder.value = fechaActualParaInput){
+  if($filterOrder.value === $filterDay.value){
     operation = operation.sort((x, y) => x.date.localeCompare(y.date));
+    console.log(operation)
   }
-  if($filterOrder= fechaActualParaInput){
+  if($filterOrder === $filterDay.value){
     operation = operation.sort((x, y) => y.date.localeCompare(x.date));
   }
 
-  if($filterOrder.value = "mayor"){
-    operation = operation.sort((x, y) => x.amount.localeCompare(y.amount));
+  if($filterOrder.value === "mayor"){
+    operation.sort((x, y) => x.amount.localeCompare(y.amount));
   }
-  if($filterOrder= "menor"){
+  if($filterOrder === "menor"){
     operation = operation.sort((x, y) => y.amount.localeCompare(x.amount));
   }
 
-  if($filterOrder.value = "a/z"){
-    operation = operation.sort((x, y) => x.description.toLowerCase().localeCompare(y.toLowerCase().description));
+  if($filterOrder.value === "a/z"){
+    operation = operation.sort((x, y) => x.description.localeCompare(y.description));
   }
-  if($filterOrder= "z/a"){
+
+
+  if($filterOrder === "z/a"){
     operation = operation.sort((x, y) => y.description.localeCompare(x.description));
   }
-  return operation;
+  paintOperation();
 };
+ */
 
   /* --------funciones para la seccion categoria------- */
   //agrega una nueva categoria
@@ -310,6 +319,10 @@ let order = () => {
     localStorage.setItem("datosCtg", JSON.stringify(category));
     paintCategory();
   };
+
+
+  /* ---------------funciones para reportes----------- */
+ 
 
   /* EVENTOS */
   // evento menu burgur 
