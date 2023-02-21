@@ -135,7 +135,7 @@ const $color = $("monto-cl");
         $containerBalance.classList.add("is-hidden");
         $newOperacion.classList.add("is-hidden");
         sectionEdit.classList.remove("is-hidden");
-        operationToEdit = operation.find(opt => opt.id === e.target.id);
+        operationToEdit = arr.find(opt => opt.id === e.target.id);
         $inputEditOp.value = operationToEdit.description;
         $selectEditCtg.value = operationToEdit.category;
         $inpEditDate.value = operationToEdit.date;
@@ -170,7 +170,7 @@ const $color = $("monto-cl");
       category: $selectCtg.value,
       date: $inputDate.value,
       type: $selectOperat.value,
-      amount: $inputMonto.value,
+      amount: Number($inputMonto.value),
 
     });
     localStorage.setItem("datos", JSON.stringify(operation));
@@ -178,7 +178,7 @@ const $color = $("monto-cl");
     paintOperation(operation);
     
   };
-
+console.log(operation)
   let editOperation = () => {
     operation = operation.map((dato) => {
       if (dato.id === operationToEdit.id) {
@@ -192,12 +192,11 @@ const $color = $("monto-cl");
     });
     localStorage.setItem("datos", JSON.stringify(operation));
     
-    paintOperation();
+    paintOperation(operation);
   };
 //levar las categorias a lo select de categorias
 
 const mostrarCategoria = (container) => {
-  $containNewOpt.innerHTML = "";
   category.forEach(function(dato) {
     container.innerHTML += `
     <option value="${dato.titulo.toLowerCase()}">${dato.titulo}</option>
@@ -207,7 +206,7 @@ const mostrarCategoria = (container) => {
 };
 // filtros
 
-$filterType.addEventListener("change", () => {
+$filterType.addEventListener("input", () => {
   filterByType()
 });
 let filterByType= ()=>{
@@ -216,7 +215,7 @@ let filterByType= ()=>{
     let copy = operation.filter((opt) => opt.type === $filterType.value);
     paintOperation(copy);  
   } else {
-    paintOperation(operation)
+    paintOperation(operation);
   }
 };
 
@@ -227,8 +226,10 @@ let filterByCategory= ()=>{
   if ($filterCategory.value !== "todos") {
     let copy  = operation.filter((opt) => opt.category === $filterCategory.value);
     paintOperation(copy);
+  }else{
+    paintOperation(operation);
   }
-paintOperation(operation);
+
 };
 
 $filterDay.addEventListener("change", () => {
@@ -244,23 +245,27 @@ $filterOrder.addEventListener("change", () => {
   order();
 });
 let order = () => {
-  if($filterOrder.value === $filterDay.value){
-    let copy= operation.sort((x, y) => x.date.localeCompare(y.date));
-    paintOperation(copy);
+  if($filterOrder.value === "masReciente"){
+    $containNewOpt.innerHTML = "";
+    let copy= operation.sort((x, y) => y.date.localeCompare(x.date));
+    paintOperation(copy)
   }
-  if($filterOrder === fechaActualParaInput){
-    let copy = operation.sort((x, y) => y.date.localeCompare(x.date));
-    paintOperation(copy);
-  }
-
-  if($filterOrder.value === "mayor"){
-    let copy = operation.sort((x, y) => x.amount.localeCompare(y.amount));
+  if($filterOrder.value === "menosReciente"){
+    let copy = operation.sort((x, y) => x.date.localeCompare(y.date));
     paintOperation(copy);
     console.log(copy)
   }
-  if($filterOrder === "menor"){
-    let copy= operation.sort((x, y) => y.amount.localeCompare(x.amount));
+
+  if($filterOrder.value === "menor"){
+    let copy = operation.sort((a, b) => a.amount - b.amount);
     paintOperation(copy);
+    console.log(copy)
+    
+  }
+  if($filterOrder.value === "mayor"){
+    let copy= operation.sort((a, b) => b.amount - a.amount);
+    paintOperation(copy);
+    console.log(copy)
   }
 
   if($filterOrder.value === "a/z"){
@@ -269,11 +274,13 @@ let order = () => {
   }
 
 
-  if($filterOrder === "z/a"){
+  if($filterOrder.value === "z/a"){
     let copy= operation.sort((x, y) => y.description.localeCompare(x.description));
     paintOperation(copy);
+    console.log(copy)
+  }else{
+paintOperation(operation)
   }
-  paintOperation(operation);
 };
 
 
